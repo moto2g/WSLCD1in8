@@ -4,6 +4,21 @@ waveshare electronics
 
 ![Waveshare_logo.png](Waveshare_logo.png)
 
+## 日本語対応（ひらがな、カタカナ）
+
+Wavashareのmicro:bit用ディスプレイでひらがな、カタカナを表示できるようになります。<br>
+対応している文字は画像のものです。<br>
+
+![top-page](https://raw.githubusercontent.com/moto2g/WSLCD1in8/image/mb_lcd01.jpg)
+![top-page](https://raw.githubusercontent.com/moto2g/WSLCD1in8/image/mb_lcd02.jpg)
+
+拡張機能に https://github.com/moto2g/WSLCD1in8 を指定し、「Show StringJ」ブロックを使います。<br>
+![top-page](https://raw.githubusercontent.com/moto2g/WSLCD1in8/image/mb_lcd03.jpg)
+
+現在のバージョンではアルファベットを表示できません。<br>
+「Show String」ブロックと使い分けてください。<br>
+
+
 # Package product
 https://www.waveshare.com/1.8inch-lcd-for-micro-bit.htm
 
