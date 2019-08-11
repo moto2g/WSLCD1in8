@@ -365,3 +365,17 @@ void LCD_Driver::LCD_DisChar_1207(int Xchar, int Ychar, int Char_Offset, int Col
             ptr++;
     }// Write all
 }
+
+void LCD_Driver::LCD_DisChar_J(int Xchar, int Ychar, int Char_Offset, int Color)
+{
+    int Page = 0, Column = 0;
+    const unsigned int *ptr = &FontJ_Table[Char_Offset];
+
+    for(Page = 0; Page < 12; Page ++ ) {
+        for(Column = 0; Column < 14; Column ++ ) {
+            if(*ptr & (0x8000 >> (Column % 16)))
+                LCD_SetPoint(Xchar + Column, Ychar + Page, Color);
+        }
+        ptr++;
+    }
+}

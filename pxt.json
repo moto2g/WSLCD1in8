@@ -14,12 +14,14 @@
         "LCD_Driver.h",
         "SPI_RAM.cpp",
         "SPI_RAM.h",
-		"shims.d.ts",
+        "shims.d.ts",
         "enums.d.ts"
     ],
     "testFiles": [
         "test.ts"
     ],
     "public": false,
-    "license": "MIT"
+    "license": "MIT",
+    "preferredEditor": "tsprj",
+    "installedVersion": "workspace:023ad734-0e9d-45ae-84c4-e47614a9619d"
 }

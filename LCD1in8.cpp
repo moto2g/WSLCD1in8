@@ -47,5 +47,10 @@ namespace LCD1IN8 {
     void DisChar_1207(int Xchar, int Ychar, int Char_Offset, int Color){
         LCD->LCD_DisChar_1207(Xchar, Ychar, Char_Offset, Color);
     }
+
+    //%
+    void DisChar_J(int Xchar, int Ychar, int Char_Offset, int Color){
+        LCD->LCD_DisChar_J(Xchar, Ychar, Char_Offset, Color);
+    }
 }
 

@@ -3,7 +3,7 @@ let FONT_BACKGROUND_COLOR = LCD_COLOR.WHITE
 let FONT_FOREGROUND_COLOR = LCD_COLOR.BLACK
 
 //% weight=20 color=#436EEE icon="\uf108"
-namespace LCD1IN8{
+namespace LCD1IN8 {
     function Swop_AB(Point1: number, Point2: number): void {
         let Temp = 0;
         Temp = Point1;
@@ -76,7 +76,7 @@ namespace LCD1IN8{
         return;
     }
 
-   //% blockId=DrawPoint
+    //% blockId=DrawPoint
     //% blockGap=8
     //% block="Draw Point|x %x|y %y|Color %Color|Point Size %Dot"
     //% x.min=1 x.max=160 y.min=1 y.max=128
@@ -151,7 +151,7 @@ namespace LCD1IN8{
 
         let Ypoint = 0;
         if (Filled) {
-            for(Ypoint = Ystart2; Ypoint < Yend2; Ypoint++) {
+            for (Ypoint = Ystart2; Ypoint < Yend2; Ypoint++) {
                 DrawLine(Xstart2, Ypoint, Xend2, Ypoint, Color, Dot_Pixel, LINE_STYLE.LINE_SOLID);
             }
         } else {
@@ -238,18 +238,18 @@ namespace LCD1IN8{
         let Font_Width = 7;
         let ch_len = ch.length;
         let i = 0;
-        for(i = 0; i < ch_len; i++) {
-            let ch_asicc =  ch.charCodeAt(i) - 32;//NULL = 32
+        for (i = 0; i < ch_len; i++) {
+            let ch_asicc = ch.charCodeAt(i) - 32;//NULL = 32
             let Char_Offset = ch_asicc * Font_Height;
-			// let Char_Offset = ch_asicc * Font_Height *(Font_Width/8 +(Font_Width%8?1:0));
-			
-            if((Xpoint + Font_Width) > 160) {
+            // let Char_Offset = ch_asicc * Font_Height *(Font_Width/8 +(Font_Width%8?1:0));
+
+            if ((Xpoint + Font_Width) > 160) {
                 Xpoint = Xchar;
                 Ypoint += Font_Height;
             }
 
             // If the Y direction is full, reposition to(Xstart, Ystart)
-            if((Ypoint  + Font_Height) > 128) {
+            if ((Ypoint + Font_Height) > 128) {
                 Xpoint = Xchar;
                 Ypoint = Ychar;
             }
@@ -270,5 +270,65 @@ namespace LCD1IN8{
         let Xpoint = Xnum;
         let Ypoint = Ynum;
         DisString(Xnum, Ynum, num + "", Color);
+    }
+
+    //% shim=LCD1IN8::DisChar_J
+    function DisChar_J(Xchar: number, Ychar: number, Char_Offset: number, Color: number): void {
+        return;
+    }
+    //% blockId=DisStringJ
+    //% blockGap=8
+    //% block="Show StringJ|X %Xchar|Y %Ychar|char %ch|Color %Color"
+    //% Xchar.min=1 Xchar.max=160 Ychar.min=1 Ychar.max=128
+    //% Color.min=0 Color.max=65535
+    //% weight=100
+    export function DisStringJ(Xchar: number, Ychar: number, ch: string, Color: number): void {
+        let Xpoint = Xchar;
+        let Ypoint = Ychar;
+        let Font_Height = 12;
+        let Font_Width = 14;
+        let ch_len = ch.length;
+        let i = 0;
+        let isHiraKana = false;
+
+        for (i = 0; i < ch_len; i++) {
+            let ch_asicc = ch.charCodeAt(i);
+/*
+            let defaultStr = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"            
+            if (defaultStr.indexOf(ch.charAt(i)) >= 0) {
+                isHiraKana = false;
+                ch_asicc = ch_asicc - 32;
+                Font_Width = 7;
+            } else {
+                isHiraKana = true;
+                ch_asicc = ch_asicc - 65;
+                Font_Width = 14;
+            }
+*/
+            isHiraKana = true;
+            ch_asicc = ch_asicc - 65;
+            Font_Width = 14;
+
+            let Char_Offset = ch_asicc * Font_Height;
+
+            if ((Xpoint + Font_Width) > 160) {
+                Xpoint = Xchar;
+                Ypoint += Font_Height;
+            }
+
+            // If the Y direction is full, reposition to(Xstart, Ystart)
+            if ((Ypoint + Font_Height) > 128) {
+                Xpoint = Xchar;
+                Ypoint = Ychar;
+            }
+            if (isHiraKana) {
+                DisChar_J(Xpoint, Ypoint, Char_Offset, Color);
+            } else {
+                DisChar_1207(Xpoint, Ypoint, Char_Offset, Color);
+            }
+
+            //The next word of the abscissa increases the font of the broadband
+            Xpoint += Font_Width;
+        }
     }
 }
